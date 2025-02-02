@@ -1,6 +1,6 @@
 "use client";
 
-import React, { PropsWithChildren, useRef, useEffect, useState } from "react";
+import React, {  useRef, useEffect, useState } from "react";
 import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaTiktok } from "react-icons/fa";
@@ -11,7 +11,7 @@ export interface DockProps extends VariantProps<typeof dockVariants> {
   iconSize?: number;
   iconMagnification?: number;
   iconDistance?: number;
-  direction?: "left" | "center" | "right";
+  
   children: React.ReactNode;
 }
 
@@ -41,7 +41,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
       iconSize = DEFAULT_SIZE,
       iconMagnification = DEFAULT_MAGNIFICATION,
       iconDistance = DEFAULT_DISTANCE,
-      direction = "center",
+      
       ...props
     },
     ref

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "next-themes";
+
 import { useEffect, useState } from "react";
 
 import Particles from "@/components/ui/particles";
@@ -8,7 +8,7 @@ import GradualSpacing from "@/components/ui/gradual-spacing";
 import Image from "next/image";
 
 export function ParticlesDemo() {
-  const { resolvedTheme } = useTheme();
+  
   const [color, setColor] = useState("#ffffff");
 
   useEffect(() => {

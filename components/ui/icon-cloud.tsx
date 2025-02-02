@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useTheme } from "next-themes";
+
 import {
   Cloud,
   fetchSimpleIcons,
@@ -44,7 +44,7 @@ export const cloudProps: Omit<ICloud, "children"> = {
 
 export const renderCustomIcon = (icon: SimpleIcon) => {
   // Set icon color to white for dark mode (only dark mode is used)
-  const iconColor = "#ffffff"; // White color for dark mode
+  
 
   // Render the icon with the fixed color applied
   return renderSimpleIcon({
@@ -87,7 +87,7 @@ export default function IconCloud({
   }, [data]);
 
   return (
-    // @ts-ignore
+    //ts-expect-error
     <Cloud {...cloudProps}>
       <>
         <>{renderedIcons}</>

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaReact, FaJs, FaNodeJs } from "react-icons/fa";
-import { SiTailwindcss, SiNextdotjs, SiMysql, SiMongodb, SiReact } from "react-icons/si";
+import { FaReact, FaNodeJs } from "react-icons/fa";
+import {  SiNextdotjs, SiMysql, SiMongodb, SiReact } from "react-icons/si";
 import IconCloudDemo from "./ui/IconCloudDemo";
 
 const Skills = () => {
