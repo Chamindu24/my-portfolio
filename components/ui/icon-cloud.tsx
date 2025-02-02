@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image"; // Import Image from next/image
 
 import {
   Cloud,
@@ -96,7 +97,13 @@ export default function IconCloud({
           imageArray.map((image, index) => {
             return (
               <a key={index} href="#" onClick={(e) => e.preventDefault()}>
-                <img height="64" width="64" alt="A globe" src={image} />
+                <Image 
+                  src={image} 
+                  alt="A globe" 
+                  height={64} 
+                  width={64} 
+                  layout="intrinsic" // Keep the aspect ratio of the image
+                />
               </a>
             );
           })}

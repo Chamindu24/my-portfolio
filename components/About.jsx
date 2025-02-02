@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
+import Image from 'next/image';
 
 const About = () => {
   const [isClient, setIsClient] = useState(false);
@@ -16,13 +17,16 @@ const About = () => {
       <div className="container mx-auto px-6 md:px-12 lg:px-20 flex md:flex-row items-start gap-20">
 
         {/* Fixed Image Section - Create a new stacking context */}
-        <div className="relative md:w-1/2 h-fit md:h-auto sticky top-20 z--1"> {/* z-0 to establish new context */}
+        <div className="md:w-1/2 h-fit md:h-auto sticky top-20 z--1"> {/* z-0 to establish new context */}
           <div className="relative max-w-sm md:max-w-md mx-auto">
-            <img
-              src="/about.jpg"
-              alt="About Me"
-              className="rounded-lg shadow-2xl transition-transform duration-500 w-full object-cover"
-            />
+          <Image
+            src="/about.jpg"
+            alt="About Me"
+            className="rounded-lg shadow-2xl transition-transform duration-500 w-full object-cover"
+            layout="responsive"
+            width={500}
+            height={500}
+          />
             {isClient && (
               <div className="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-500 to-pink-500 blur-2xl opacity-50"></div>
             )}

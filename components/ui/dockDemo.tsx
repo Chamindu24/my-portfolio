@@ -1,7 +1,7 @@
 "use client";
 
-import React, {  useRef, useEffect, useState } from "react";
-import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, MotionValue, useMotionValue, useSpring, useTransform, HTMLMotionProps } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaTiktok } from "react-icons/fa";
 import { cn } from "@/lib/utils"; // Update this based on your utility class setup
@@ -11,7 +11,6 @@ export interface DockProps extends VariantProps<typeof dockVariants> {
   iconSize?: number;
   iconMagnification?: number;
   iconDistance?: number;
-  
   children: React.ReactNode;
 }
 
@@ -41,7 +40,6 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
       iconSize = DEFAULT_SIZE,
       iconMagnification = DEFAULT_MAGNIFICATION,
       iconDistance = DEFAULT_DISTANCE,
-      
       ...props
     },
     ref
@@ -89,8 +87,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 
 Dock.displayName = "Dock";
 
-export interface DockIconProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+export interface DockIconProps extends HTMLMotionProps<"div"> {
   size?: number;
   magnification?: number;
   distance?: number;
@@ -141,7 +138,7 @@ const DockIcon = ({
         "flex cursor-pointer items-center justify-center rounded-full bg-black hover:bg-gray-600",
         className
       )}
-      {...(props as any)}
+      {...props} // Spread the correct motion.div props
     >
       {children}
     </motion.div>

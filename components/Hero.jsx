@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
+import Image from 'next/image';
 
 const Hero = () => {
   return (
@@ -22,7 +23,7 @@ const Hero = () => {
       {/* Content Section: Text */}
       <div className="relative z-10 text-center md:text-left max-w-xl opacity-0 animate-slide-in-left">
       <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight">
-          I'm <span className="text-indigo-500">Chamindu Sathsara</span>
+          I&apos;m <span className="text-indigo-500">Chamindu Sathsara</span>
         </h1>
         <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
           A passionate <span className="text-purple-400">Software Engineer</span> dedicated to crafting high-quality solutions and delightful user experiences.
@@ -46,7 +47,7 @@ const Hero = () => {
           {/* Rotating Border */}
           <div className="absolute inset-0 rounded-full border-4 border-dotted border-indigo-100 animate-rotate-border shadow-[0_0_20px_5px_rgba(99,102,241,0.8)]"></div>
           {/* Image */}
-          <img
+          <Image
             src="/bg.png" // Replace this with the actual path to your image
             alt="Chamindu Sathsara"
             className="w-full h-full object-cover"
