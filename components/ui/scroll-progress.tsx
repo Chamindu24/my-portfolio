@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion, useScroll, useSpring, HTMLMotionProps } from "framer-motion";
 import React from "react";
 
-interface ScrollProgressProps extends HTMLMotionProps<"div"> {}
+
 
 export const ScrollProgress = React.forwardRef<
   HTMLDivElement,
