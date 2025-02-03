@@ -1,28 +1,36 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import Image from 'next/image';
 
 const Hero = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <div className="relative flex flex-col md:flex-row h-screen items-center justify-center md:justify-between bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white  px-16 sm:px-10 md:px-20 lg:px-40 overflow-hidden">
+    <div className="relative flex flex-col md:flex-row h-screen items-center justify-center md:justify-between bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white px-16 sm:px-10 md:px-20 lg:px-40 overflow-hidden">
       {/* Animated Grid Pattern Background */}
-      <AnimatedGridPattern
-        numSquares={30}
-        maxOpacity={0.3}
-        duration={3}
-        
-        className={cn(
-          "absolute inset-0",
-          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-          "skew-y-12"
-        )}
-      />
+      {isClient && (
+        <AnimatedGridPattern
+          numSquares={30}
+          maxOpacity={0.3}
+          duration={3}
+          className={cn(
+            "absolute inset-0",
+            "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+            "skew-y-12"
+          )}
+        />
+      )}
 
       {/* Content Section: Text */}
-      <div className="relative z-10 text-center md:text-left max-w-xl opacity-0 animate-slide-in-left">
-      <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight">
+      <div className="relative z-10 text-center md:text-left max-w-xl transition-opacity duration-500" style={{ opacity: isClient ? 1 : 0 }}>
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight">
           I&apos;m <span className="text-indigo-500">Chamindu Sathsara</span>
         </h1>
         <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
@@ -42,15 +50,18 @@ const Hero = () => {
       </div>
 
       {/* Right Section: Photo */}
-      <div className="relative z-10 mt-6 md:mt-0 md:ml-10 opacity-0 animate-slide-in-right">
-      <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] rounded-full overflow-hidden shadow-lg">
+      <div className="relative z-10 mt-6 md:mt-0 md:ml-10 transition-opacity duration-500" style={{ opacity: isClient ? 1 : 0 }}>
+        <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] rounded-full overflow-hidden shadow-lg">
           {/* Rotating Border */}
           <div className="absolute inset-0 rounded-full border-4 border-dotted border-indigo-100 animate-rotate-border shadow-[0_0_20px_5px_rgba(99,102,241,0.8)]"></div>
           {/* Image */}
           <Image
-            src="/bg.png" // Replace this with the actual path to your image
+            src="/bg.png"
             alt="Chamindu Sathsara"
+            width={400}
+            height={400}
             className="w-full h-full object-cover"
+            priority={true} // Ensure it loads properly
           />
         </div>
       </div>

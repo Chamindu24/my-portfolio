@@ -29,9 +29,8 @@ export default function AnimatedGridPattern({
   ...props
 }: AnimatedGridPatternProps) {
   const id = useId();
-  const containerRef = useRef<SVGSVGElement | null>(null); // Added type
+  const containerRef = useRef<SVGSVGElement | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [squares, setSquares] = useState(() => generateSquares(numSquares));
 
   const getPos = useCallback(() => {
     return [
@@ -40,12 +39,15 @@ export default function AnimatedGridPattern({
     ];
   }, [dimensions.width, dimensions.height, width, height]);
 
+  // ✅ Move generateSquares before it is used
   const generateSquares = useCallback((count: number) => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
       pos: getPos(),
     }));
   }, [getPos]);
+
+  const [squares, setSquares] = useState(() => generateSquares(numSquares));
 
   const updateSquarePosition = (id: number) => {
     setSquares((currentSquares) =>
@@ -55,14 +57,12 @@ export default function AnimatedGridPattern({
     );
   };
 
-  // ✅ Added `generateSquares` as a dependency
   useEffect(() => {
     if (dimensions.width && dimensions.height) {
       setSquares(generateSquares(numSquares));
     }
   }, [dimensions, numSquares, generateSquares]);
 
-  // ✅ Used local variable for `containerRef.current` in cleanup function
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
@@ -73,7 +73,7 @@ export default function AnimatedGridPattern({
       }
     });
 
-    const container = containerRef.current; // Store the current ref
+    const container = containerRef.current;
     if (container) {
       resizeObserver.observe(container);
     }

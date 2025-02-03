@@ -1,4 +1,5 @@
 "use client";
+
 import confetti from "canvas-confetti";
 import { useState } from "react";
 
@@ -11,7 +12,7 @@ const Contact = () => {
     const end = Date.now() + 3 * 1000; // 3 seconds
     const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
 
-    const frame = () => {
+    (function frame() {
       if (Date.now() > end) return;
 
       confetti({
@@ -32,14 +33,11 @@ const Contact = () => {
       });
 
       requestAnimationFrame(frame);
-    };
-
-    frame();
+    })();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Trigger confetti animation
     handleConfetti();
 
     // Create the mailto link dynamically
@@ -49,6 +47,11 @@ const Contact = () => {
 
     // Open the email client
     window.location.href = mailtoLink;
+
+    // Clear form fields
+    setName("");
+    setEmail("");
+    setMessage("");
   };
 
   return (
@@ -73,6 +76,7 @@ const Contact = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full rounded-lg p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            required
           />
           <input
             type="email"
@@ -80,12 +84,14 @@ const Contact = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            required
           />
           <textarea
             placeholder="Your Message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="w-full rounded-lg p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+            required
           ></textarea>
 
           <button
