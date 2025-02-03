@@ -80,7 +80,7 @@ const Projects = () => (
         {projects.map((project, index) => (
           <div
             key={index}
-            className="group relative rounded-xl bg-gray-800 p-5 shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            className="group relative rounded-xl bg-gray-800 p-5 shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-indigo-200"
           >
             {/* Project Image */}
             <Image
@@ -92,7 +92,7 @@ const Projects = () => (
             />
 
             {/* Project Title */}
-            <h3 className="text-xl font-semibold text-white  mt-5">
+            <h3 className="text-xl font-semibold text-white mt-5">
               {project.title}
             </h3>
 
@@ -104,14 +104,14 @@ const Projects = () => (
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center text-blue-400 font-medium group-hover:text-indigo-400 hover:underline transition-all duration-300"
+              className="mt-6 inline-flex items-center text-blue-500 font-medium group-hover:text-indigo-400 hover:underline transition-all duration-300"
             >
               <FaGithub className="mr-2 text-lg" />
               View on GitHub
             </a>
 
             {/* Hover Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-500 to-transparent opacity-5 group-hover:opacity-20 transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-400 to-transparent opacity-5 group-hover:opacity-20 transition-all duration-500 rounded-lg blur-2xl"></div>
           </div>
         ))}
       </div>

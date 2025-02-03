@@ -1,14 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, MotionProps, useScroll, useSpring } from "motion/react";
+import { motion, useScroll, useSpring, HTMLMotionProps } from "framer-motion";
 import React from "react";
-interface ScrollProgressProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps> {}
+
+interface ScrollProgressProps extends HTMLMotionProps<"div"> {}
 
 export const ScrollProgress = React.forwardRef<
   HTMLDivElement,
-  ScrollProgressProps
+  HTMLMotionProps<"div">
 >(({ className, ...props }, ref) => {
   const { scrollYProgress } = useScroll();
 
@@ -23,7 +23,7 @@ export const ScrollProgress = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed inset-x-0 top-0 z-[1000] h-1 origin-left bg-gradient-to-r from-[#6d41b9] via-[#d13f7e] to-[#e1ea32]",
-        className,
+        className
       )}
       style={{
         scaleX,
@@ -34,5 +34,4 @@ export const ScrollProgress = React.forwardRef<
 });
 
 ScrollProgress.displayName = "ScrollProgress";
-// Exporting as default
 export default ScrollProgress;

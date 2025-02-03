@@ -2,6 +2,7 @@
 
 import confetti from "canvas-confetti";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -61,46 +62,87 @@ const Contact = () => {
     >
       <div className="container mx-auto text-center px-6 lg:px-10">
         {/* Title Section */}
-        <h2 className="text-4xl md:text-5xl font-extrabold text-white">
+        <motion.h2
+          className="text-4xl md:text-5xl font-extrabold text-white"
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
           Contact Me
-        </h2>
-        <p className="mt-4 text-gray-400 text-lg">
+        </motion.h2>
+        <motion.p
+          className="mt-4 text-gray-400 text-lg"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           Feel free to reach out for collaborations, questions, or just a chat!
-        </p>
+        </motion.p>
 
         {/* Form Section */}
-        <form className="mt-12 space-y-6 max-w-lg mx-auto" onSubmit={handleSubmit}>
-          <input
+        <motion.form
+          className="mt-12 space-y-6 max-w-lg mx-auto"
+          onSubmit={handleSubmit}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ staggerChildren: 0.15, delayChildren: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <motion.input
             type="text"
             placeholder="Your Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full rounded-lg p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             required
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeInOut" } },
+            }}
           />
-          <input
+          <motion.input
             type="email"
             placeholder="Your Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             required
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeInOut" } },
+            }}
           />
-          <textarea
+          <motion.textarea
             placeholder="Your Message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="w-full rounded-lg p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
             required
-          ></textarea>
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeInOut" } },
+            }}
+          ></motion.textarea>
 
-          <button
+          <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
             type="submit"
-            className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 hover:scale-105 transition duration-300 inline-block text-center"
+            className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 inline-block text-center"
+            initial={{ opacity: 0, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+            
+            
+            viewport={{ once: true }}
           >
+
+
             Send Message
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       </div>
     </section>
   );
