@@ -5,6 +5,7 @@ import Projects from '../components/Projects';
 import Contact from '../components/Contact';
 import DockDemo from '../components/ui/dockDemo'; // Adjust the import path if necessary
 
+
 export default function Home() {
   return (
     <main>
@@ -13,7 +14,8 @@ export default function Home() {
       <Skills />
       <Projects />
       <Contact />
-      <DockDemo /> {/* Added DockDemo component */}
+      
+      <DockDemo /> 
     </main>
   );
 }

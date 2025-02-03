@@ -1,12 +1,17 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import Image from 'next/image';
 
 const About = () => {
-  const [isClient, setIsClient] = useState(false);
+  const [offsetY, setOffsetY] = useState(0);
 
   useEffect(() => {
-    setIsClient(true);
+    const handleScroll = () => {
+      setOffsetY(window.scrollY * 0.3); // Adjust speed of parallax effect
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -16,25 +21,30 @@ const About = () => {
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-20 flex md:flex-row items-start gap-20">
 
-        {/* Fixed Image Section - Create a new stacking context */}
-        <div className="md:w-1/2 h-fit md:h-auto sticky top-20 z--1"> {/* z-0 to establish new context */}
-          <div className="relative max-w-sm md:max-w-md mx-auto">
-          <Image
-            src="/about.jpg"
-            alt="About Me"
-            className="rounded-lg shadow-2xl transition-transform duration-500 w-full object-cover"
-            layout="responsive"
-            width={500}
-            height={500}
-          />
-            {isClient && (
-              <div className="absolute -z-10 top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-500 to-pink-500 blur-2xl opacity-50"></div>
-            )}
+        {/* Parallax Image Section */}
+        <div className="md:w-1/2 h-fit md:h-auto">
+          <div 
+            className="relative max-w-sm md:max-w-md mx-auto"
+            style={{
+              position: 'sticky',
+              top: '0px', // Sticky effect to keep image fixed when scrolling
+              // Parallax effect
+              
+            }}
+          >
+            <Image
+              src="/about5.png"
+              alt="About Me"
+              className="rounded-lg shadow-2xl transition-transform duration-500 w-full object-cover"
+              width={300}
+              height={200}
+              priority
+            />
           </div>
         </div>
 
         {/* Scrollable Content Section */}
-        <div className="md:w-1/2 space-y-6 z-1"> {/* z-1 to be on top of the image*/}
+        <div className="md:w-1/2 space-y-6 z-1">
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide text-white">About Me</h2>
           <p className="text-gray-200 text-xl">
             Discover my journey, passion, and the skills I bring to the table.
@@ -51,7 +61,7 @@ const About = () => {
           </p>
           <a
             href="#contact"
-            className="inline-block mt-8 px-6 py-3 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-medium rounded-md shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300"
+            className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 hover:scale-105 transition duration-300 inline-block text-center"
           >
             Let’s Connect
           </a>

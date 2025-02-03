@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Particles from "@/components/ui/particles";
 import GradualSpacing from "@/components/ui/gradual-spacing";
 import Image from "next/image";
+import { FaGithub } from 'react-icons/fa'; // For GitHub icon
 
 export function ParticlesDemo() {
   
@@ -18,7 +19,7 @@ export function ParticlesDemo() {
   return (
     <Particles
       className="absolute inset-0 z-0"
-      quantity={100}
+      quantity={200}
       ease={100}
       color={color}
       refresh
@@ -98,19 +99,19 @@ const Projects = () => (
             {/* Project Description */}
             <p className="text-gray-100 mt-3">{project.description}</p>
 
-            {/* GitHub Link with Emoji */}
+            {/* GitHub Link with Emoji and Icon */}
             <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-block text-blue-400 font-medium group-hover:text-indigo-400 hover:underline"
+              className="mt-6 inline-flex items-center text-blue-400 font-medium group-hover:text-indigo-400 hover:underline transition-all duration-300"
             >
-              
+              <FaGithub className="mr-2 text-lg" />
               View on GitHub
             </a>
 
             {/* Hover Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-500 to-transparent opacity-5 group-hover:opacity-20"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-500 to-transparent opacity-5 group-hover:opacity-20 transition-all duration-300"></div>
           </div>
         ))}
       </div>
