@@ -141,3 +141,6 @@ body {
 .animate-rotate-border {
   animation: rotate-border 8s linear infinite;
 }
+html {
+  scroll-behavior: smooth;
+}

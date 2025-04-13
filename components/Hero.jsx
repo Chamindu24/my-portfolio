@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import Image from 'next/image';
 import { motion } from "framer-motion";
+import { scrollToSection } from "../utils/smoothScroll";
+import GlitchText from '@/components/ui/GlitchText';
 
 const Hero = () => {
   const [isClient, setIsClient] = useState(false);
@@ -37,7 +39,15 @@ const Hero = () => {
         className="relative z-10 text-center md:text-left max-w-xl"
       >
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold leading-tight">
-          I&apos;m <span className="text-indigo-500">Chamindu Sathsara</span>
+        
+            I&apos;m <span className="text-indigo-500"><GlitchText
+            speed={3}
+            enableShadows={true}
+            
+            className='custom-class'
+          >Chamindu Sathsara</GlitchText></span>
+            
+          
         </h1>
         <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
           A passionate <span className="text-purple-400">Software Engineer</span> dedicated to crafting high-quality solutions and delightful user experiences.
@@ -48,15 +58,16 @@ const Hero = () => {
           <br />
           University of Moratuwa
         </p>
-        <a href="#projects">
+        
           <motion.button
+            onClick={() => scrollToSection("projects")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300"
           >
             View My Work
           </motion.button>
-        </a>
+        
       </motion.div>
 
       {/* Right Section: Photo Animation */}
