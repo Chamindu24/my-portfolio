@@ -8,6 +8,7 @@ import GradualSpacing from "@/components/ui/gradual-spacing";
 import Image from "next/image";
 import { FaGithub } from 'react-icons/fa'; // For GitHub icon
 
+
 export function ParticlesDemo() {
   
   const [color, setColor] = useState("#ffffff");
@@ -114,6 +115,7 @@ const Projects = () => (
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-indigo-400 to-transparent opacity-5 group-hover:opacity-20 transition-all duration-500 rounded-lg blur-2xl"></div>
           </div>
         ))}
+
       </div>
     </div>
   </section>

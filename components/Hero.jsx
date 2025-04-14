@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { scrollToSection } from "../utils/smoothScroll";
 import GlitchText from '@/components/ui/GlitchText';
 import Magnet from '@/components/ui/Magnet'
+
 const Hero = () => {
   const [isClient, setIsClient] = useState(false);
 

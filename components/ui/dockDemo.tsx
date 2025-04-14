@@ -19,7 +19,7 @@ const DEFAULT_MAGNIFICATION = 60;
 const DEFAULT_DISTANCE = 140;
 
 const dockVariants = cva(
-  "supports-backdrop-blur:bg-gray-800/90 supports-backdrop-blur:dark:bg-black/80 flex flex-col h-max w-[60px] items-center justify-center gap-3 rounded-2xl border border-gray-800 p-4 backdrop-blur-md shadow-lg fixed top-1/2 transform -translate-y-1/2",
+  "supports-backdrop-blur:bg-gray-800/90 supports-backdrop-blur:dark:bg-black/80 flex flex-col h-max w-[60px] items-center justify-center gap-3 rounded-2xl border border-gray-800 p-4 backdrop-blur-md shadow-lg fixed top-1/2 transform -translate-y-1/2 z-50",
   {
     variants: {
       mode: {
