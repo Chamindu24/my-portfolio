@@ -68,7 +68,7 @@ const Projects = () => (
 
     {/* Content Section */}
     <div className="relative z-10 container mx-auto text-center px-6 lg:px-20">
-      {/* Title Section */}
+      
       <GradualSpacingDemo />
 
       <p className="mt-4 text-white text-2xl opacity-90">

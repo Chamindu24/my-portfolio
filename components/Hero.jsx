@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { motion } from "framer-motion";
 import { scrollToSection } from "../utils/smoothScroll";
 import GlitchText from '@/components/ui/GlitchText';
-
+import Magnet from '@/components/ui/Magnet'
 const Hero = () => {
   const [isClient, setIsClient] = useState(false);
 
@@ -58,15 +58,16 @@ const Hero = () => {
           <br />
           University of Moratuwa
         </p>
-        
-          <motion.button
-            onClick={() => scrollToSection("projects")}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300"
-          >
-            View My Work
-          </motion.button>
+          <Magnet padding={50} disabled={false} magnetStrength={8}>
+            <motion.button
+              onClick={() => scrollToSection("projects")}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300"
+            >
+              View My Work
+            </motion.button>
+          </Magnet>
         
       </motion.div>
 

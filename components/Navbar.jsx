@@ -31,17 +31,21 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden md:flex space-x-12 text-lg">
-            <button onClick={() => handleNavClick("about")} className="relative group transition duration-300">
-              <span className="hover:text-indigo-400 transition duration-300">About</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
-            </button>
+          <button onClick={() => handleNavClick("about")} className="relative group transition duration-300">
+            <span className="hover:text-indigo-400 transition duration-300">About</span>
+            <span className="absolute top-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-left"></span>
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-right"></span>
+          </button>
+
             <button onClick={() => handleNavClick("projects")} className="relative group transition duration-300">
               <span className="hover:text-indigo-400 transition duration-300">Projects</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute top-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-left"></span>
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-right"></span>
             </button>
             <button onClick={() => handleNavClick("contact")} className="relative group transition duration-300">
               <span className="hover:text-indigo-400 transition duration-300">Contact</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute top-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-left"></span>
+            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-right"></span>
             </button>
           </div>
 

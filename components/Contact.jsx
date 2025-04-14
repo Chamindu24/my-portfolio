@@ -3,6 +3,7 @@
 import confetti from "canvas-confetti";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Magnet from '@/components/ui/Magnet'
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -125,23 +126,24 @@ const Contact = () => {
               visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeInOut" } },
             }}
           ></motion.textarea>
+            <Magnet padding={50} disabled={false} magnetStrength={8}>
+              <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+                type="submit"
+                className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 inline-block text-center"
+                initial={{ opacity: 0, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+                
+                
+                viewport={{ once: true }}
+              >
 
-          <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-            type="submit"
-            className="mt-6 rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 inline-block text-center"
-            initial={{ opacity: 0, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
-            
-            
-            viewport={{ once: true }}
-          >
 
-
-            Send Message
-          </motion.button>
+                Send Message
+              </motion.button>
+            </Magnet>
         </motion.form>
       </div>
     </section>
