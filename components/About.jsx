@@ -106,7 +106,7 @@ const About = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
             viewport={{ once: true }}
           >
-            I'm passionate about{" "}
+            I&rsquo;m passionate about{" "}
             <RotatingText
               texts={[
                 "learning new skills", 
@@ -144,7 +144,6 @@ const About = () => {
             Outside of coding, I enjoy{" "}
             <RotatingText
               texts={[
-                "photography", 
                 "open-source contributions", 
                 "playing guitar",
                 "hiking"
@@ -176,7 +175,7 @@ const About = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.9 }}
             viewport={{ once: true }}
           >
-            Let’s Connect
+           Let&rsquo;s Connect
           </motion.a>
         </motion.div>
       </div>
