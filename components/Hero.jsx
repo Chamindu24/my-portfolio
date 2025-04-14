@@ -17,7 +17,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col md:flex-row h-screen items-center justify-center md:justify-between bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white px-16 sm:px-10 md:px-20 lg:px-40 overflow-hidden">
+    
+    <div  id="home" className="relative flex flex-col md:flex-row h-screen items-center justify-center md:justify-between bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white px-16 sm:px-10 md:px-20 lg:px-40 overflow-hidden">
       {/* Animated Grid Pattern Background */}
       {isClient && (
         <AnimatedGridPattern

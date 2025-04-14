@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter,FaRegEnvelope  } from 'react-icons/fa';
 
 const Footer = () => (
   <footer className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-8">
@@ -6,7 +6,7 @@ const Footer = () => (
       {/* Social Icons Section */}
       <div className="flex justify-center gap-6 mb-6">
         <a
-          href="https://github.com"
+          href="https://github.com/Chamindu24"
           target="_blank"
           rel="noopener noreferrer"
           className="text-2xl hover:text-indigo-500 transition-all duration-300"
@@ -14,7 +14,7 @@ const Footer = () => (
           <FaGithub />
         </a>
         <a
-          href="https://linkedin.com"
+          href="https://linkedin.com/in/chamindu-sathsara-95a2402a3"
           target="_blank"
           rel="noopener noreferrer"
           className="text-2xl hover:text-indigo-500 transition-all duration-300"
@@ -29,11 +29,19 @@ const Footer = () => (
         >
           <FaTwitter />
         </a>
+        <a
+          href="mailto:chamindus.22@cse.mrt.ac.lk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-2xl hover:text-indigo-500 transition-all duration-300"
+        >
+          <FaRegEnvelope />
+        </a>
       </div>
 
       {/* Copyright Section */}
       <p className="text-gray-400 text-sm">
-        &copy; 2025 My Portfolio. All Rights Reserved.
+        &copy; {new Date().getFullYear()} Chamindu Sathsara.  All Rights Reserved.
       </p>
     </div>
   </footer>
