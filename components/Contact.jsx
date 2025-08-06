@@ -69,7 +69,7 @@ const Contact = () => {
           Contact Me
         </motion.h2>
         <motion.p
-          className="mt-4 text-gray-400 text-lg text-center"
+          className="mt-4 text-gray-200 font-mono  text-lg text-center"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}

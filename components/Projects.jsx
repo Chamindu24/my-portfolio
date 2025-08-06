@@ -72,7 +72,7 @@ const Projects = () => (
       
       <GradualSpacingDemo />
 
-      <p className="mt-4 text-white text-2xl opacity-90">
+      <p className="mt-4 text-gray-200 font-mono text-xl opacity-90">
         Check out some of the projects I&apos;ve worked on.
       </p>
 

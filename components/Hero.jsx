@@ -51,7 +51,7 @@ const Hero = () => {
             
           
         </h1>
-        <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
+        <p className="mt-4 text-sm sm:text-base md:text-lg text-gray-300 font-mono leading-relaxed">
           A passionate <span className="text-purple-400">Software Engineer</span> dedicated to crafting high-quality solutions and delightful user experiences.
           <br />
           Undergraduate of the
