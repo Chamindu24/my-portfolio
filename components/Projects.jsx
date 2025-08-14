@@ -40,6 +40,26 @@ export function GradualSpacingDemo() {
 // Define your projects manually (including private ones)
 const projects = [
   {
+    title: "Creator Boost",
+    description: `Developed a microservices-based platform connecting social media creators. Designed RESTful APIs with Java Spring Boot using OOP, SOLID principles, and TDD with JUnit. Leveraged Apache Kafka for asynchronous communication, implemented role-based access, service listings, booking management, real-time messaging, and secure payments. Integrated PostgreSQL and MongoDB, deployed services with Docker, and optimized performance for real-time chat and multi-platform social media management.
+`,
+    image: "/creatorboost.png", // Store image in 'public/projects/'
+    link: "https://github.com/GamiXChanuka/E_commerce_29.git", // Your GitHub repo
+  },
+  {
+    title: "Real-time Chat App",
+    description: "Created a cross-platform chat application with Firebase authentication, image sharing, and real-time message synchronization. Built with a clean mobile-first UI using Expo.",
+    image: "/chat.jpg",
+    link: "https://github.com/hasithasandunlakshan/leo_candle_night.git",
+  },
+  {
+    title: "AI-Powered Notepad ",
+    description: `Created a smart note-taking app integrated with Gemini API to summarize and enhance text inputs using
+natural language processing`,
+    image: "/calc.jpg", // Store image in 'public/projects/'
+    link: "https://github.com/GamiXChanuka/E_commerce_29.git", // Your GitHub repo
+  },
+  {
     title: "E-Commerce Website",
     description: "A Next.js e-commerce platform with Stripe integration. Shopzy is a local chain retailer in Texas aiming to enhance its online presence to compete with major players like Amazon. The project involves designing and developing a robust e-commerce platform that will initially focus on consumer electronics and toys.",
     image: "/ecommerce.png", // Store image in 'public/projects/'
@@ -57,6 +77,13 @@ const projects = [
     image: "/Screenshot (370).png",
     link: "https://github.com/hasithasandunlakshan/leo_candle_night.git",
   },
+  
+  {
+    title: "Face Recognition Attendance System",
+    description: "Developed an AI-powered attendance system using real-time facial recognition, integrated with a voice notification system and CSV-based record management.",
+    image: "/face.png", // Store image in 'public/projects/'
+    link: "https://github.com/GamiXChanuka/E_commerce_29.git", // Your GitHub repo
+  },
 ];
 
 const Projects = () => (
@@ -68,7 +95,7 @@ const Projects = () => (
     <ParticlesDemo />
 
     {/* Content Section */}
-    <div className="relative z-10 container mx-auto text-center px-6 lg:px-20">
+    <div className="relative z-10 container mx-auto text-center px-6 lg:px-20 ">
       
       <GradualSpacingDemo />
 
@@ -77,7 +104,7 @@ const Projects = () => (
       </p>
 
       {/* Project Cards */}
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center justify-items-center">
         {projects.map((project, index) => (
           <div
             key={index}
