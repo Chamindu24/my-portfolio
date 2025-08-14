@@ -111,10 +111,10 @@ const Skills = () => {
 
         
 
-        {/* IconCloudDemo */}
+        {/* IconCloudDemo - Enhanced responsiveness for small screens */}
         {isMounted && (
           <div className="mt-4 flex justify-center">
-            <div className="relative bg-black p-1 text-center w-full max-w-xl sm:max-w-full h-[250px] sm:h-[400px] md:h-[450px] lg:h-[600px] flex items-center justify-center">
+            <div className="relative bg-black p-1 text-center w-full h-[400px] xs:h-[450px] sm:h-[500px] md:h-[450px] lg:h-[600px] flex items-center justify-center">
               <IconCloudDemo />
             </div>
           </div>

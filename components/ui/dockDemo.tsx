@@ -5,6 +5,7 @@ import { motion, MotionValue, useMotionValue, useSpring, useTransform, HTMLMotio
 import { cva, type VariantProps } from "class-variance-authority";
 import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaTiktok } from "react-icons/fa";
 import { cn } from "@/lib/utils"; // Update this based on your utility class setup
+import Link from "next/link";
 
 export interface DockProps extends VariantProps<typeof dockVariants> {
   className?: string;
@@ -154,16 +155,22 @@ export default function VerticalDock() {
   return (
     <Dock>
       <DockIcon>
-        <FaInstagram size={24} className="text-white" />
+        <Link href="https://instagram.com/chamindu_zathsara" target="_blank">
+          <FaInstagram size={24} className="text-white" />
+        </Link>
       </DockIcon>
       <DockIcon>
-        <FaFacebook size={24} className="text-white" />
+        <Link href="https://www.facebook.com/chamindusathsara.hewamaddawaththa/" target="_blank">
+          <FaFacebook size={24} className="text-white" />
+        </Link>
       </DockIcon>
       <DockIcon>
         <FaYoutube size={24} className="text-white" />
       </DockIcon>
       <DockIcon>
-        <FaLinkedin size={24} className="text-white" />
+        <Link href="https://www.linkedin.com/in/chamindu-sathsara-95a2402a3/" target="_blank">
+          <FaLinkedin size={24} className="text-white" />
+        </Link>
       </DockIcon>
       <DockIcon>
         <FaTiktok size={24} className="text-white" />
