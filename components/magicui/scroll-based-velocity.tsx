@@ -45,7 +45,7 @@ function ParallaxText({
     stiffness: 200,
   });
 
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 0.1], {
     clamp: false,
   });
 
@@ -112,7 +112,7 @@ function ParallaxText({
 }
 
 export function VelocityScroll({
-  defaultVelocity = 5,
+  defaultVelocity = 0.1,
   numRows = 1,
   children,
   className,

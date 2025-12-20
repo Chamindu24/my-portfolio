@@ -1,17 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "react-feather";
 import ScrollProgress from "../components/ui/scroll-progress";
 import { scrollToSection } from "../utils/smoothScroll";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); // Enables client-only behavior
+    setIsClient(true);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navLinks = [
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Projects", id: "projects" },
+    { name: "Contact", id: "contact" },
+  ];
 
   const handleNavClick = (sectionId) => {
     scrollToSection(sectionId);
@@ -22,62 +34,100 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full bg-black text-white shadow-lg z-50">
-        <div className="container mx-auto flex items-center justify-between px-6 md:px-28 py-6">
-          {/* Logo */}
-          <h1 className="text-xl md:text-2xl font-bold tracking-wide cursor-pointer" onClick={() => scrollToSection("home")}>
-            Chamindu Sathsara
-          </h1>
+      <div className="fixed top-0 left-0 w-full z-[60] pointer-events-none">
+        <ScrollProgress />
+      </div>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex space-x-12 text-lg">
-          <button onClick={() => handleNavClick("about")} className="relative group transition duration-300">
-            <span className="hover:text-indigo-400 transition duration-300">About</span>
-            <span className="absolute top-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-left"></span>
-            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-right"></span>
-          </button>
+      <header className="fixed top-0 left-0 w-full z-50 flex justify-center">
+        <nav
+          className={`transition-all duration-500 ease-in-out mt-4 mx-4 w-full max-w-7xl 
+          ${
+            scrolled
+              ? "bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl py-3 px-6 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)]"
+              : "bg-transparent py-6 px-6 border-transparent"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            {/* Logo Section */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="cursor-pointer flex items-center gap-3 group"
+              onClick={() => scrollToSection("home")}
+            >
+              <div className="relative w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center overflow-hidden">
+                <span className="font-black text-white z-10">C</span>
+                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <h1 className="text-lg font-bold tracking-[0.2em] text-white uppercase">
+                Chamindu<span className="text-indigo-500">.</span>
+              </h1>
+            </motion.div>
 
-            <button onClick={() => handleNavClick("projects")} className="relative group transition duration-300">
-              <span className="hover:text-indigo-400 transition duration-300">Projects</span>
-              <span className="absolute top-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-left"></span>
-            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-right"></span>
-            </button>
-            <button onClick={() => handleNavClick("contact")} className="relative group transition duration-300">
-              <span className="hover:text-indigo-400 transition duration-300">Contact</span>
-              <span className="absolute top-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-left"></span>
-            <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300 origin-right"></span>
-            </button>
-          </div>
+            {/* Desktop Links */}
+            <div className="hidden md:flex items-center gap-8">
+              <ul className="flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <li key={link.id}>
+                    <button
+                      onClick={() => handleNavClick(link.id)}
+                      className="text-[11px] uppercase tracking-[0.25em] font-semibold text-gray-400 hover:text-white transition-all relative group"
+                    >
+                      {link.name}
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-indigo-500 transition-all duration-300 group-hover:w-full" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-          {/* Mobile Menu Button */}
-          <button className="md:hidden text-white focus:outline-none" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <X size={30} /> : <Menu size={30} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="absolute top-full left-0 w-full bg-black border-t border-gray-700">
-            <div className="flex flex-col items-center space-y-4 py-5">
-              <button onClick={() => handleNavClick("about")} className="hover:text-indigo-400 transition duration-300">
-                About
-              </button>
-              <button onClick={() => handleNavClick("skills")} className="hover:text-indigo-400 transition duration-300">
-                Skills
-              </button>
-              <button onClick={() => handleNavClick("projects")} className="hover:text-indigo-400 transition duration-300">
-                Projects
-              </button>
-              <button onClick={() => handleNavClick("contact")} className="hover:text-indigo-400 transition duration-300">
-                Contact
+              {/* High-End CTA */}
+              <button
+                onClick={() => handleNavClick("contact")}
+                className="ml-4 px-6 py-2.5 bg-white text-black text-xs font-bold uppercase tracking-wider rounded-full hover:bg-indigo-500 hover:text-white transition-all duration-300 transform active:scale-95"
+              >
+                Let&apos;s Talk
               </button>
             </div>
-          </div>
-        )}
-      </nav>
 
-      {/* Scroll Progress below the Navbar */}
-      <ScrollProgress className="mt-20" />
+            {/* Mobile Toggle */}
+            <button
+              className="md:hidden text-white"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-24 left-4 right-4 bg-black/90 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 z-40 md:hidden shadow-2xl"
+            >
+              <div className="flex flex-col gap-8 items-center">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.id}
+                    onClick={() => handleNavClick(link.id)}
+                    className="text-2xl font-medium text-gray-300 hover:text-indigo-400"
+                  >
+                    {link.name}
+                  </button>
+                ))}
+                <button
+                  onClick={() => handleNavClick("contact")}
+                  className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold uppercase tracking-widest"
+                >
+                  Hire Me
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
     </>
   );
 };

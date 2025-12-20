@@ -13,27 +13,24 @@ const Contact = () => {
 
   const handleConfetti = () => {
     const end = Date.now() + 3 * 1000;
-    const colors = ["#a786ff", "#fd8bbc", "#eca184", "#f8deb1"];
+    const colors = ["#6366f1", "#ffffff", "#312e81"]; // Indigo & Carbon colors
 
     (function frame() {
       if (Date.now() > end) return;
       confetti({
-        particleCount: 2,
+        particleCount: 3,
         angle: 60,
         spread: 55,
-        startVelocity: 60,
-        origin: { x: 0, y: 0.5 },
+        origin: { x: 0, y: 0.8 },
         colors,
       });
       confetti({
-        particleCount: 2,
+        particleCount: 3,
         angle: 120,
         spread: 55,
-        startVelocity: 60,
-        origin: { x: 1, y: 0.5 },
+        origin: { x: 1, y: 0.8 },
         colors,
       });
-
       requestAnimationFrame(frame);
     })();
   };
@@ -41,120 +38,117 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleConfetti();
-
-    const subject = encodeURIComponent(`Message from ${name}`);
+    const subject = encodeURIComponent(`Inquiry from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    const mailtoLink = `mailto:chamindus.22@cse.mrt.ac.lk?subject=${subject}&body=${body}`;
-
-    window.location.href = mailtoLink;
-
-    setName("");
-    setEmail("");
-    setMessage("");
+    window.location.href = `mailto:chamindus.22@cse.mrt.ac.lk?subject=${subject}&body=${body}`;
+    setName(""); setEmail(""); setMessage("");
   };
 
   return (
     <section
       id="contact"
-      className="py-8 sm:py-12 lg:py-16 bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white min-h-screen flex items-center"
+      className="py-24 bg-[#050505] text-white min-h-screen flex items-center relative overflow-hidden"
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 w-full">
-        <motion.h2
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center"
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          Contact Me
-        </motion.h2>
-        <motion.p
-          className="mt-3 sm:mt-4 text-gray-200 font-mono text-base sm:text-lg text-center px-4"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          Feel free to reach out for collaborations, questions, or just a chat!
-        </motion.p>
+      {/* Subtle Background Radial Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
 
-        {/* Responsive Layout - Mobile: Column, Desktop: Row */}
-        <div className="mt-8 sm:mt-10 lg:mt-14 flex flex-col lg:flex-row gap-8 lg:gap-16 w-full">
+      <div className="container mx-auto px-6 lg:px-24 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
           
-          {/* 3D Model Section - Shows first on mobile */}
+          {/* Left Column: Text & Form */}
+          <div className="w-full lg:w-1/2 space-y-10">
+            <div className="space-y-4">
+              <motion.h2
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="text-5xl md:text-7xl font-bold tracking-tighter"
+              >
+                LET&apos;S <span className="text-white/20">CONNECT.</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-gray-400 text-lg font-light max-w-md leading-relaxed"
+              >
+                Whether you have a question or just want to say hi, my inbox is always open.
+              </motion.p>
+            </div>
+
+            <motion.form
+              onSubmit={handleSubmit}
+              className="space-y-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="NAME"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full bg-[#111111] border border-white/5 rounded-2xl p-4 outline-none focus:border-indigo-500/50 transition-all text-sm tracking-widest uppercase font-bold"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="EMAIL"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-[#111111] border border-white/5 rounded-2xl p-4 outline-none focus:border-indigo-500/50 transition-all text-sm tracking-widest uppercase font-bold"
+                  required
+                />
+              </div>
+              <textarea
+                placeholder="YOUR MESSAGE"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full bg-[#111111] border border-white/5 rounded-3xl p-6 outline-none focus:border-indigo-500/50 transition-all min-h-[180px] text-sm tracking-widest uppercase font-bold resize-none"
+                required
+              />
+              
+              <div className="pt-4">
+                <Magnet padding={20} magnetStrength={3}>
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="group relative flex items-center justify-center gap-3 bg-white text-black px-10 py-5 rounded-full font-black text-xs uppercase tracking-[0.3em] hover:bg-indigo-600 hover:text-white transition-all duration-500 w-full md:w-auto"
+                  >
+                    Send Message
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </motion.button>
+                </Magnet>
+              </div>
+            </motion.form>
+          </div>
+
+          {/* Right Column: 3D Experience Box */}
           <motion.div
-            className="w-full lg:flex-[1.2] min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] rounded-2xl overflow-hidden order-1 lg:order-2"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="w-full lg:w-1/2 h-[500px] md:h-[650px] relative group"
           >
-            <div className="w-full h-full bg-[#4e2c5e] hover:cursor-grab rounded-2xl lg:rounded-3xl">
+            <div className="absolute inset-0 bg-indigo-500/10 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-full" />
+            <div className="w-full h-full bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] overflow-hidden relative shadow-2xl">
+              {/* Overlay Glass Tag */}
+              <div className="absolute top-6 left-6 z-20 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full flex items-center gap-2">
+                <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
+                <span className="text-[10px] font-bold tracking-widest uppercase text-white/50">Developer Space</span>
+              </div>
+              
+            <div className="w-full h-full grayscale hover:grayscale-0 transition-all duration-1000 opacity-60 hover:opacity-100">
               <ContactExperience />
+            </div>
+              
+              {/* Bottom Instructions */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-[9px] uppercase tracking-[0.3em] text-white/40 whitespace-nowrap">
+                Drag to rotate • Scroll to zoom
+              </div>
             </div>
           </motion.div>
 
-          {/* Form Section - Shows second on mobile */}
-          <motion.form
-            onSubmit={handleSubmit}
-            className="w-full lg:flex-[0.7] space-y-4 sm:space-y-6 order-2 lg:order-1 px-2 sm:px-4 lg:pl-12"
-            initial="hidden"
-            whileInView="visible"
-            transition={{ staggerChildren: 0.15, delayChildren: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <motion.input
-              type="text"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg p-3 sm:p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm sm:text-base"
-              required
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-              }}
-            />
-            <motion.input
-              type="email"
-              placeholder="Your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg p-3 sm:p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm sm:text-base"
-              required
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-              }}
-            />
-            <motion.textarea
-              placeholder="Your Message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full rounded-lg p-3 sm:p-4 bg-gray-700 text-white border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all min-h-[120px] sm:min-h-[150px] text-sm sm:text-base resize-none"
-              required
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-              }}
-            />
-            <div className="flex justify-center pt-2 sm:pt-4">
-              <Magnet padding={30} disabled={false} magnetStrength={6}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  className="rounded-full bg-indigo-600 px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300 inline-block text-center min-w-[140px] sm:min-w-[160px]"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  Send Message
-                </motion.button>
-              </Magnet>
-            </div>
-          </motion.form>
         </div>
       </div>
     </section>

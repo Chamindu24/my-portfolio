@@ -1,180 +1,113 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import { motion, MotionValue, useMotionValue, useSpring, useTransform, HTMLMotionProps } from "framer-motion";
-import { cva, type VariantProps } from "class-variance-authority";
-import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaTiktok } from "react-icons/fa";
-import { cn } from "@/lib/utils"; // Update this based on your utility class setup
+import React, { useRef, useState } from "react";
+import { 
+  motion, 
+  useMotionValue, 
+  useSpring, 
+  useTransform, 
+  AnimatePresence,  MotionValue
+} from "framer-motion";
+import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaGithub } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export interface DockProps extends VariantProps<typeof dockVariants> {
-  className?: string;
-  iconSize?: number;
-  iconMagnification?: number;
-  iconDistance?: number;
+// --- Types ---
+interface DockIconProps {
   children: React.ReactNode;
+  label: string;
+  href?: string;
+  mouseY: MotionValue<number>
 }
 
-const DEFAULT_SIZE = 40;
-const DEFAULT_MAGNIFICATION = 60;
-const DEFAULT_DISTANCE = 140;
+// --- Component ---
 
-const dockVariants = cva(
-  "supports-backdrop-blur:bg-gray-800/90 supports-backdrop-blur:dark:bg-black/80 flex flex-col h-max w-[60px] items-center justify-center gap-3 rounded-2xl border border-gray-800 p-4 backdrop-blur-md shadow-lg fixed top-1/2 transform -translate-y-1/2 z-50",
-  {
-    variants: {
-      mode: {
-        dark: "bg-gray-900 text-white",
-      },
-    },
-    defaultVariants: {
-      mode: "dark",
-    },
-  }
-);
+export default function PremiumVerticalDock() {
+  const mouseY = useMotionValue(Infinity);
+  // SpotLight effect for the dock background
+  const mouseX = useMotionValue(0); 
 
-const Dock = React.forwardRef<HTMLDivElement, DockProps>(
-  (
-    {
-      className,
-      children,
-      iconSize = DEFAULT_SIZE,
-      iconMagnification = DEFAULT_MAGNIFICATION,
-      iconDistance = DEFAULT_DISTANCE,
-      ...props
-    },
-    ref
-  ) => {
-    const [mounted, setMounted] = useState(false); // Track if the component is mounted
-    const mouseY = useMotionValue(Infinity);
-
-    useEffect(() => {
-      setMounted(true); // Set mounted to true once the component is client-side
-    }, []);
-
-    const renderChildren = () => {
-      return React.Children.map(children, (child) => {
-        if (React.isValidElement(child) && child.type === DockIcon) {
-          return React.cloneElement(child as React.ReactElement<ExtendedDockIconProps>, {
-            ...Object.assign({}, child.props),
-            mouseY: mouseY,
-            size: iconSize,
-            magnification: iconMagnification,
-            distance: iconDistance,
-          });
-        }
-        return child;
-      });
-    };
-
-    // Render only on client-side
-    if (!mounted) {
-      return null;
-    }
-
-    return (
-      <motion.div
-        ref={ref}
-        onMouseMove={(e) => mouseY.set(e.pageY)}
-        onMouseLeave={() => mouseY.set(Infinity)}
-        {...props}
-        className={cn(dockVariants({ className }))}
-      >
-        {renderChildren()}
-      </motion.div>
-    );
-  }
-);
-
-Dock.displayName = "Dock";
-
-export interface DockIconProps extends HTMLMotionProps<"div"> {
-  size?: number;
-  magnification?: number;
-  distance?: number;
-  mouseY?: MotionValue<number>;
-  className?: string;
-  children?: React.ReactNode;
+  return (
+    <nav 
+      onMouseMove={(e) => {
+        mouseY.set(e.pageY);
+        mouseX.set(e.pageX);
+      }}
+      onMouseLeave={() => mouseY.set(Infinity)}
+      className="fixed left-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 p-2 rounded-3xl border border-white/10 bg-black/20 backdrop-blur-2xl"
+    >
+      <DockIcon mouseY={mouseY} label="Instagram" href="https://instagram.com/chamindu_zathsara"><FaInstagram /></DockIcon>
+      <DockIcon mouseY={mouseY} label="LinkedIn" href="https://www.linkedin.com/in/chamindu-sathsara-95a2402a3/"><FaLinkedin /></DockIcon>
+      <DockIcon mouseY={mouseY} label="GitHub" href="https://github.com/Chamindu24"><FaGithub /></DockIcon>
+      <DockIcon mouseY={mouseY} label="Facebook" href="https://www.facebook.com/chamindusathsara.hewamaddawaththa/" ><FaFacebook /></DockIcon>
+      
+      {/* Visual Separator */}
+      <div className="h-[1px] w-8 bg-white/10 mx-auto my-1" />
+      
+      <DockIcon mouseY={mouseY} label="YouTube" href="https://www.youtube.com/@chamindusathsara"><FaYoutube /></DockIcon>
+    </nav>
+  );
 }
 
-interface ExtendedDockIconProps extends DockIconProps {
-  mouseY: MotionValue<number>;
-}
-
-const DockIcon = ({
-  size = DEFAULT_SIZE,
-  magnification = DEFAULT_MAGNIFICATION,
-  distance = DEFAULT_DISTANCE,
-  mouseY,
-  className,
-  children,
-  ...props
-}: DockIconProps) => {
+function DockIcon({ children, label, href = "#", mouseY }: DockIconProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const padding = Math.max(6, size * 0.2);
-  const defaultMouseY = useMotionValue(Infinity);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const distanceCalc = useTransform(mouseY ?? defaultMouseY, (val: number) => {
+  // 1. Magnification Logic
+  const distance = useTransform(mouseY, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { y: 0, height: 0 };
     return val - bounds.y - bounds.height / 2;
   });
 
-  const sizeTransform = useTransform(
-    distanceCalc,
-    [-distance, 0, distance],
-    [size, magnification, size]
-  );
+  const widthSync = useTransform(distance, [-150, 0, 150], [45, 70, 45]);
+  const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
-  const scaleSize = useSpring(sizeTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
+  // 2. Magnetic Pull (The icon "leans" toward the mouse)
+  const leanSync = useTransform(distance, [-150, 0, 150], [8, 0, -8]);
+  const lean = useSpring(leanSync, { stiffness: 200, damping: 20 });
 
   return (
-    <motion.div
-      ref={ref}
-      style={{ width: scaleSize, height: scaleSize, padding }}
-      className={cn(
-        "flex cursor-pointer items-center justify-center rounded-full bg-black hover:bg-gray-600",
-        className
-      )}
-      {...props} // Spread the correct motion.div props
-    >
-      {children}
-    </motion.div>
-  );
-};
+    <Link href={href} className="relative">
+      <motion.div
+        ref={ref}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{ 
+          width, 
+          height: width,
+          y: lean // This creates the "magnetic" vertical leaning effect
+        }}
+        className={cn(
+          "relative flex items-center justify-center rounded-2xl",
+          "bg-gradient-to-b from-white/10 to-white/[0.02]",
+          "border border-white/10 shadow-inner",
+          "transition-colors duration-300 hover:border-white/40 group"
+        )}
+      >
+        {/* Inner Glow */}
+        <div className="absolute inset-0 rounded-2xl bg-white/[0.03] opacity-0 group-hover:opacity-100 transition-opacity" />
+        
+        <motion.div 
+          className="text-white/60 group-hover:text-white transition-colors"
+          style={{ fontSize: "1.5rem" }}
+        >
+          {children}
+        </motion.div>
 
-DockIcon.displayName = "DockIcon";
-
-export { Dock, DockIcon, dockVariants };
-
-// Example usage
-export default function VerticalDock() {
-  return (
-    <Dock>
-      <DockIcon>
-        <Link href="https://instagram.com/chamindu_zathsara" target="_blank">
-          <FaInstagram size={24} className="text-white" />
-        </Link>
-      </DockIcon>
-      <DockIcon>
-        <Link href="https://www.facebook.com/chamindusathsara.hewamaddawaththa/" target="_blank">
-          <FaFacebook size={24} className="text-white" />
-        </Link>
-      </DockIcon>
-      <DockIcon>
-        <FaYoutube size={24} className="text-white" />
-      </DockIcon>
-      <DockIcon>
-        <Link href="https://www.linkedin.com/in/chamindu-sathsara-95a2402a3/" target="_blank">
-          <FaLinkedin size={24} className="text-white" />
-        </Link>
-      </DockIcon>
-      <DockIcon>
-        <FaTiktok size={24} className="text-white" />
-      </DockIcon>
-    </Dock>
+        {/* Tooltip */}
+        <AnimatePresence>
+          {isHovered && (
+            <motion.span
+              initial={{ opacity: 0, x: 10, filter: "blur(4px)" }}
+              animate={{ opacity: 1, x: 25, filter: "blur(0px)" }}
+              exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
+              className="absolute left-full ml-4 px-3 py-1 rounded-md bg-white text-black text-[10px] font-bold uppercase tracking-widest pointer-events-none"
+            >
+              {label}
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </Link>
   );
 }

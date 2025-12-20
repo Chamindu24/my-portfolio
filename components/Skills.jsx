@@ -25,11 +25,6 @@ const VelocityScroll = dynamic(
   { ssr: false }
 );
 
-const IconCloudDemo = dynamic(
-  () => import("./ui/IconCloudDemo"),
-  { ssr: false }
-);
-
 const Skills = () => {
   const [ setVisibleCards] = useState([]);
   
@@ -56,7 +51,7 @@ const Skills = () => {
     cards.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
-  }, []);
+  }, [setVisibleCards]);
 
   const skills = [
     { icon: <SiNextdotjs className="text-white text-4xl" />, label: "Next.js", color: "bg-black", proficiency: 90 },
@@ -79,15 +74,9 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-16 bg-black flex items-center justify-center min-h-screen">
-      <div className="container mx-auto px-6 sm:px-10 md:px-16 lg:px-20">
-        {/* Title Section */}
-        <h2 className="text-4xl md:text-5xl tracking-wide font-extrabold text-center text-white">
-          My Skills
-        </h2>
-        <p className="mt-6 font-mono tracking-wide text-center text-gray-200 text-lg">
-          The tools and technologies I work with to build amazing things.
-        </p>
+    <section id="skills" className="py-2 bg-black ">
+      <div className="">
+
         
         {/* VelocityScroll with icons */}
         {isMounted && (
@@ -104,6 +93,17 @@ const Skills = () => {
                 ))}
               </div>
             </VelocityScroll>
+            {/* Bottom row ← left */}
+              <VelocityScroll defaultVelocity={-1} className="text-white mt-1 ">
+                <div className="flex items-center space-x-12">
+                  {skills.map((skill, index) => (
+                    <div key={`bottom-${index}`} className="flex items-center space-x-2">
+                      <div className="text-8xl">{skill.icon}</div>
+                      <span className="text-2xl font-light">{skill.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </VelocityScroll>
             <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-20"></div>
             <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-20"></div>
           </div>
@@ -111,14 +111,7 @@ const Skills = () => {
 
         
 
-        {/* IconCloudDemo - Enhanced responsiveness for small screens */}
-        {isMounted && (
-          <div className="mt-4 flex justify-center">
-            <div className="relative bg-black p-1 text-center w-full h-[400px] xs:h-[450px] sm:h-[500px] md:h-[450px] lg:h-[600px] flex items-center justify-center">
-              <IconCloudDemo />
-            </div>
-          </div>
-        )}
+
       </div>
     </section>
   );
