@@ -38,7 +38,7 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "components/Navbar.jsx", "components/Projects.jsx", "components/Skills.jsx", "components/Contact.jsx", "components/Footer.jsx"  ],
   "exclude": [
     "node_modules"
   ]

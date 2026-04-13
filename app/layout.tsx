@@ -5,14 +5,18 @@ import Footer from '../components/Footer';
 export const metadata = {
   title: 'Chamindu Sathsara',
   description: 'Portfolio built with Next.js and Tailwind CSS',
-  
+  icons: {
+    icon: '/mylogo.png',
+    shortcut: '/mylogo.png',
+    apple: '/mylogo.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       
-      <body>
+      <body suppressHydrationWarning>
         <Navbar />
         {children}
         <Footer />
