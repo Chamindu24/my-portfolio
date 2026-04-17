@@ -15,27 +15,115 @@ import {
   ExternalLink,
 } from "lucide-react";
 
+const TOTAL_FRAMES = 240;
+const INITIAL_PRELOAD_COUNT = 24;
+
+const clampFrame = (frame) => Math.max(1, Math.min(TOTAL_FRAMES, frame));
+const getFramePath = (frame) => {
+  const paddedFrame = String(clampFrame(frame)).padStart(3, "0");
+  return `/about/ezgif-frame-${paddedFrame}.png`;
+};
+
+const findNearestLoadedFrame = (targetFrame, loadedFrames) => {
+  if (loadedFrames.has(targetFrame)) return targetFrame;
+
+  for (let offset = 1; offset < TOTAL_FRAMES; offset += 1) {
+    const prev = targetFrame - offset;
+    const next = targetFrame + offset;
+
+    if (prev >= 1 && loadedFrames.has(prev)) return prev;
+    if (next <= TOTAL_FRAMES && loadedFrames.has(next)) return next;
+  }
+
+  return 1;
+};
+
 const About = () => {
   const containerRef = useRef(null);
   const stickyRef = useRef(null);
+  const loadedFramesRef = useRef(new Set());
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [1, 240]);
+  const frameIndex = useTransform(scrollYProgress, [0, 1], [1, TOTAL_FRAMES]);
   const [currentFrame, setCurrentFrame] = useState(1);
+  const [displayFrame, setDisplayFrame] = useState(1);
+  const [loadedTick, setLoadedTick] = useState(0);
   const smoothFrame = useSpring(frameIndex, { stiffness: 80, damping: 20 });
+
+  const markFrameLoaded = (frame) => {
+    if (loadedFramesRef.current.has(frame)) return;
+    loadedFramesRef.current.add(frame);
+    setLoadedTick((value) => value + 1);
+  };
+
+  const preloadFrame = (frame) => {
+    const normalized = clampFrame(frame);
+    if (loadedFramesRef.current.has(normalized)) return;
+
+    const img = new Image();
+    img.decoding = "async";
+    img.src = getFramePath(normalized);
+    img.onload = () => markFrameLoaded(normalized);
+  };
 
   useEffect(() => {
     return smoothFrame.on("change", (latest) => {
-      setCurrentFrame(Math.max(1, Math.min(240, Math.floor(latest))));
+      setCurrentFrame(clampFrame(Math.floor(latest)));
     });
   }, [smoothFrame]);
 
-  const paddedFrame = String(currentFrame).padStart(3, "0");
-  const imagePath = `/about/ezgif-frame-${paddedFrame}.png`;
+  useEffect(() => {
+    markFrameLoaded(1);
+    preloadFrame(1);
+
+    for (let frame = 2; frame <= INITIAL_PRELOAD_COUNT; frame += 1) {
+      preloadFrame(frame);
+    }
+
+    let cursor = INITIAL_PRELOAD_COUNT + 1;
+    let idleId;
+    let timeoutId;
+
+    const loadBatch = () => {
+      const batchEnd = Math.min(cursor + 15, TOTAL_FRAMES + 1);
+      for (; cursor < batchEnd; cursor += 1) {
+        preloadFrame(cursor);
+      }
+
+      if (cursor <= TOTAL_FRAMES) {
+        timeoutId = window.setTimeout(loadBatch, 30);
+      }
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      idleId = window.requestIdleCallback(loadBatch);
+    } else {
+      timeoutId = window.setTimeout(loadBatch, 30);
+    }
+
+    return () => {
+      if (idleId) window.cancelIdleCallback(idleId);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  useEffect(() => {
+    for (let offset = -8; offset <= 8; offset += 1) {
+      preloadFrame(currentFrame + offset);
+    }
+  }, [currentFrame]);
+
+  useEffect(() => {
+    setDisplayFrame(
+      findNearestLoadedFrame(currentFrame, loadedFramesRef.current)
+    );
+  }, [currentFrame, loadedTick]);
+
+  const imagePath = getFramePath(displayFrame);
 
   return (
     <section
