@@ -142,7 +142,7 @@ body {
   animation: rotate-border 8s linear infinite;
 }
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 
@@ -163,7 +163,7 @@ html {
 
 /* 3. The Thumb */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #38bdf8, #6366f1);
+  background: linear-gradient(180deg, #ef4444, #dc2626);
   border-radius: 10px;
 
   /* Professional separation */
@@ -174,7 +174,7 @@ html {
 
 /* 4. Hover State */
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: #dc2626;
   border: 1px solid #000;
 }
 
@@ -182,6 +182,6 @@ html {
 @supports (scrollbar-width: thin) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #6366f1 #000;
+    scrollbar-color: #dc2626 #000;
   }
 }

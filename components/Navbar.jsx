@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 
 const Navbar = () => {
+  const MENU_CLOSE_SCROLL_DELAY_MS = 220;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,6 +22,45 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const lenis = window["__lenis"];
+
+    if (!menuOpen) {
+      lenis?.start?.();
+      return;
+    }
+
+    const scrollY = window.scrollY;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalBodyPosition = document.body.style.position;
+    const originalBodyTop = document.body.style.top;
+    const originalBodyWidth = document.body.style.width;
+    const originalBodyTouchAction = document.body.style.touchAction;
+    const originalBodyOverscroll = document.body.style.overscrollBehavior;
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
+    lenis?.stop?.();
+
+    return () => {
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.position = originalBodyPosition;
+      document.body.style.top = originalBodyTop;
+      document.body.style.width = originalBodyWidth;
+      document.body.style.touchAction = originalBodyTouchAction;
+      document.body.style.overscrollBehavior = originalBodyOverscroll;
+      lenis?.start?.();
+      window.scrollTo(0, scrollY);
+    };
+  }, [menuOpen]);
 
   const navLinks = [
     { name: "Studio", id: "about" },
@@ -121,8 +161,10 @@ const Navbar = () => {
                   >
                     <button
                       onClick={() => {
-                        scrollToSection(link.id);
                         setMenuOpen(false);
+                        window.setTimeout(() => {
+                          scrollToSection(link.id);
+                        }, MENU_CLOSE_SCROLL_DELAY_MS);
                       }}
                       className="relative group text-left py-2"
                     >

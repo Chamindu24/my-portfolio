@@ -17,7 +17,6 @@ import {
 import { TbBrandReactNative } from "react-icons/tb";
 import dynamic from "next/dynamic";
 
-// Dynamically import client-side only components
 const VelocityScroll = dynamic(
   () => import("./magicui/scroll-based-velocity"),
   { ssr: false },
@@ -25,7 +24,6 @@ const VelocityScroll = dynamic(
 
 const Skills = () => {
   const [setVisibleCards] = useState([]);
-
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -53,97 +51,97 @@ const Skills = () => {
 
   const skills = [
     {
-      icon: <SiNextdotjs className="text-white text-4xl" />,
+      icon: <SiNextdotjs className="text-white text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Next.js",
       color: "bg-black",
       proficiency: 90,
     },
     {
-      icon: <FaReact className="text-[#61DAFB] text-4xl" />,
+      icon: <FaReact className="text-[#61DAFB] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "React",
       color: "bg-[#61DAFB]",
       proficiency: 95,
     },
     {
-      icon: <SiTypescript className="text-[#3178C6] text-4xl" />,
+      icon: <SiTypescript className="text-[#3178C6] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "TypeScript",
       color: "bg-[#3178C6]",
       proficiency: 85,
     },
     {
-      icon: <SiJavascript className="text-[#F7DF1E] text-4xl" />,
+      icon: <SiJavascript className="text-[#F7DF1E] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "JavaScript",
       color: "bg-[#F7DF1E]",
       proficiency: 95,
     },
     {
-      icon: <FaNodeJs className="text-[#68A063] text-4xl" />,
+      icon: <FaNodeJs className="text-[#68A063] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Node.js",
       color: "bg-[#68A063]",
       proficiency: 85,
     },
     {
-      icon: <TbBrandReactNative className="text-[#61DAFB] text-4xl" />,
+      icon: <TbBrandReactNative className="text-[#61DAFB] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "React Native",
       color: "bg-[#61DAFB]",
       proficiency: 80,
     },
     {
-      icon: <SiTailwindcss className="text-[#06B6D4] text-4xl" />,
+      icon: <SiTailwindcss className="text-[#06B6D4] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Tailwind CSS",
       color: "bg-[#06B6D4]",
       proficiency: 90,
     },
     {
-      icon: <SiRedux className="text-[#764ABC] text-4xl" />,
+      icon: <SiRedux className="text-[#764ABC] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Redux",
       color: "bg-[#764ABC]",
       proficiency: 80,
     },
     {
-      icon: <SiExpress className="text-[#f8f6f6] text-4xl" />,
+      icon: <SiExpress className="text-[#f8f6f6] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Express",
       color: "bg-[#000000]",
       proficiency: 80,
     },
     {
-      icon: <SiMongodb className="text-[#47A248] text-4xl" />,
+      icon: <SiMongodb className="text-[#47A248] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "MongoDB",
       color: "bg-[#47A248]",
       proficiency: 85,
     },
     {
-      icon: <SiPostgresql className="text-[#4169E1] text-4xl" />,
+      icon: <SiPostgresql className="text-[#4169E1] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "PostgreSQL",
       color: "bg-[#4169E1]",
       proficiency: 75,
     },
     {
-      icon: <SiMysql className="text-[#4479A1] text-4xl" />,
+      icon: <SiMysql className="text-[#4479A1] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "MySQL",
       color: "bg-[#4479A1]",
       proficiency: 70,
     },
     {
-      icon: <SiDocker className="text-[#2496ED] text-4xl" />,
+      icon: <SiDocker className="text-[#2496ED] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Docker",
       color: "bg-[#2496ED]",
       proficiency: 65,
     },
     {
-      icon: <FaGitAlt className="text-[#F05032] text-4xl" />,
+      icon: <FaGitAlt className="text-[#F05032] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Git",
       color: "bg-[#F05032]",
       proficiency: 90,
     },
     {
-      icon: <SiFirebase className="text-[#FFCA28] text-4xl" />,
+      icon: <SiFirebase className="text-[#FFCA28] text-3xl sm:text-5xl md:text-5xl lg:text-6xl  " />,
       label: "Firebase",
       color: "bg-[#FFCA28]",
       proficiency: 70,
     },
     {
-      icon: <FaSass className="text-[#CC6699] text-4xl" />,
+      icon: <FaSass className="text-[#CC6699] text-3xl sm:text-5xl md:text-5xl lg:text-6xl" />,
       label: "Sass",
       color: "bg-[#CC6699]",
       proficiency: 85,
@@ -151,30 +149,26 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-2 bg-black ">
-      <div className="">
+    <section id="skills" className="py-2 bg-black">
+      {isMounted && (
+        <div className="relative flex w-full mt-4 flex-col items-center justify-center overflow-hidden py-6 sm:py-8 md:py-12">
+          <VelocityScroll defaultVelocity={0.3} className="text-white">
+            <div className="flex items-center space-x-6 sm:space-x-8 md:space-x-12">
+              {skills.map((skill, index) => (
+                <div key={index} className="flex items-center space-x-1.5 sm:space-x-2">
+                  <div>{skill.icon}</div>
+                  <span className="text-sm sm:text-xl md:text-2xl lg:text-2xl font-light whitespace-nowrap">
+                    {skill.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </VelocityScroll>
 
-
-        
-        {/* VelocityScroll with icons */}
-        {isMounted && (
-          <div className="relative flex w-full mt-4 flex-col items-center justify-center overflow-hidden py-12">
-            <VelocityScroll defaultVelocity={0.3} className="text-white">
-              <div className="flex items-center space-x-12">
-                {skills.map((skill, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <div className="text-9xl">{skill.icon}</div>
-                    <span className="text-3xl font-light">{skill.label}</span>
-                  </div>
-                ))}
-              </div>
-            </VelocityScroll>
-
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-20"></div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-20"></div>
-          </div>
-        )}
-      </div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-black to-transparent z-20" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-black to-transparent z-20" />
+        </div>
+      )}
     </section>
   );
 };

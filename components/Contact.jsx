@@ -10,6 +10,7 @@ const Contact = () => {
   const containerRef = useRef(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [message, setMessage] = useState("");
 
   const { scrollYProgress } = useScroll({
@@ -36,7 +37,7 @@ const Contact = () => {
     handleConfetti();
     const subject = encodeURIComponent(`Project Brief: ${name}`);
     const body = encodeURIComponent(
-      `Inquiry from: ${name}\nContact: ${email}\n\nVision:\n${message}`,
+      `Inquiry from: ${name}\nContact: ${email}\nWhatsApp: ${whatsapp || "Not provided"}\n\nVision:\n${message}`,
     );
     window.location.href = `mailto:hello@blackpepper.com?subject=${subject}&body=${body}`;
   };
@@ -137,6 +138,24 @@ const Contact = () => {
               </label>
             </div>
 
+            {/* WHATSAPP */}
+            <div className="relative">
+              <input
+                type="tel"
+                required
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
+                className="peer w-full bg-transparent border-b border-white/30 py-3 sm:py-4 outline-none focus:border-white transition-all text-lg sm:text-xl font-light placeholder-transparent"
+                id="whatsapp"
+              />
+              <label
+                htmlFor="whatsapp"
+                className="absolute left-0 top-3 sm:top-4 text-white/60 text-[10px] sm:text-sm uppercase tracking-widest transition-all peer-focus:-top-4 peer-focus:text-[10px] peer-focus:text-red-600 peer-valid:-top-4 peer-valid:text-[10px]"
+              >
+                WhatsApp number
+              </label>
+            </div>
+
             {/* MESSAGE */}
             <div className="relative">
               <textarea
@@ -184,7 +203,7 @@ const Contact = () => {
       </motion.div>
 
       {/* BACKGROUND EXPERIENCE — clipped and toned down on small screens */}
-      <div className="absolute bottom-[-20%] sm:bottom-[-30%] lg:bottom-[-40%] right-[-20%] sm:right-[-15%] lg:right-[-10%] w-[80%] sm:w-[90%] lg:w-[100%] h-[80%] sm:h-[90%] lg:h-[100%] opacity-30 sm:opacity-40 lg:opacity-50 pointer-events-none brightness-50 contrast-125">
+      <div className="absolute bottom-[-20%] sm:bottom-[-30%] lg:bottom-[-40%] right-[-20%] sm:right-[-15%] lg:right-[-10%] w-[100%] sm:w-[90%] lg:w-[100%] h-[50%] sm:h-[60%] lg:h-[100%] opacity-60 cursor-pointer brightness-50 contrast-125">
         <ContactExperience />
       </div>
 

@@ -11,7 +11,9 @@ const Hero = () => {
       className="relative min-h-screen w-full flex items-center justify-center bg-black overflow-hidden" // Changed to bg-black
     >
       {/* 4. FRONT UI OVERLAY (Text & CTA) */}
-      <div className="absolute inset-0 z-40 flex flex-col justify-center p-8 md:p-16 pointer-events-none"> {/* Increased z-index to stay above the foreground clipped text */}
+      <div className="absolute inset-0 z-10 flex flex-col mb-48 justify-center p-8 md:p-16 pointer-events-none">
+        {" "}
+        {/* Increased z-index to stay above the foreground clipped text */}
         <div className="grid grid-cols-1 md:grid-cols-2 w-full max-w-7xl mx-auto gap-8 pointer-events-auto">
           {/* Left Side: Tagline */}
           <motion.div
@@ -20,7 +22,7 @@ const Hero = () => {
             transition={{ delay: 0.5 }}
             className="flex flex-col justify-end"
           >
-            <h2 className="text-3xl md:text-5xl font-medium text-white leading-[1.1] max-w-sm">
+            <h2 className="text-3xl md:text-4xl font-medium text-white leading-[1.1] max-w-sm">
               Engineering Digital <br /> Products With Intent.
             </h2>
           </motion.div>
@@ -89,20 +91,21 @@ const Hero = () => {
         </div>
       </motion.div>
 
-       {/* 2b. THE FOREGROUND TEXT (Outline/Transparent) */}
-       {/* This occupies the exact same space, has higher z-index, and uses the outline style */}
+      {/* 2b. THE FOREGROUND TEXT (Outline/Transparent) */}
+      {/* This occupies the exact same space, has higher z-index, and uses the outline style */}
       <div className="absolute inset-0 mb-16  flex items-end justify-center select-none z-30">
-        <h1 
-            className="flex flex-col md:flex-row items-center  justify-center font-black leading-none tracking-tighter text-[22vw] md:text-[16vw]"
-            style={{
-                WebkitTextStroke: "2px rgba(255,255,255,0.6)", // White outline
-                color: "transparent", // Transparent fill to show image
-              }}
+        <h1
+          className="flex flex-col md:flex-row items-center  justify-center font-black leading-none tracking-tighter text-[22vw] md:text-[16vw]"
+          style={{
+            WebkitTextStroke: "2px rgba(255,255,255,0.6)", // White outline
+            color: "transparent", // Transparent fill to show image
+          }}
         >
           CHAMINDU
         </h1>
       </div>
 
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black to-transparent z-40" />
     </section>
   );
 };
