@@ -93,11 +93,11 @@ const Navbar = () => {
             className="flex items-center gap-4 group focus:outline-none"
           >
             <div className="text-right hidden md:block">
-              <p className="text-[12px] uppercase tracking-[0.4em] text-white">
+              <p className="text-[12px] font-bold uppercase tracking-[0.4em] text-white">
                 Navigation
               </p>
             </div>
-            <div className="w-12 h-12 flex items-center justify-center relative border-2 border-white/40 rounded-full group-hover:border-red-600 transition-colors">
+            <div className="w-12 h-12 flex items-center justify-center relative border-2 border-white/90 rounded-full group-hover:border-red-600 transition-colors">
               <div className="relative flex flex-col gap-1.5">
                 <motion.span
                   animate={
@@ -201,18 +201,40 @@ const Navbar = () => {
                 <div className="space-y-4">
                   <div className="flex flex-wrap gap-3">
                     {[
-                      { Icon: FaLinkedinIn, href: "https://www.linkedin.com/in/chamindu-sathsara-95a2402a3/", label: "LinkedIn" },
-                      { Icon: FaGithub, href: "https://github.com/Chamindu24", label: "GitHub" },
-                      { Icon: FaInstagram, href: "https://instagram.com/chamindu_zathsara", label: "Instagram" },
+                      {
+                        Icon: FaLinkedinIn,
+                        href: "https://www.linkedin.com/in/chamindu-sathsara-95a2402a3/",
+                        label: "LinkedIn",
+                      },
+                      {
+                        Icon: FaGithub,
+                        href: "https://github.com/Chamindu24",
+                        label: "GitHub",
+                      },
+                      {
+                        Icon: FaInstagram,
+                        href: "https://instagram.com/chamindu_zathsara",
+                        label: "Instagram",
+                      },
                       { Icon: FaWhatsapp, href: "#", label: "WhatsApp" },
-                      { Icon: FaFacebookF, href: "https://www.facebook.com/chamindusathsara.hewamaddawaththa/", label: "Facebook" },
+                      {
+                        Icon: FaFacebookF,
+                        href: "https://www.facebook.com/chamindusathsara.hewamaddawaththa/",
+                        label: "Facebook",
+                      },
                     ].map((soc, idx) => (
                       <a
                         key={idx}
                         href={soc.href}
                         aria-label={soc.label}
-                        target={soc.href.startsWith("http") ? "_blank" : undefined}
-                        rel={soc.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        target={
+                          soc.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          soc.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
                         className="group relative flex items-center justify-center w-11 h-11 border-2 border-white/50 rounded-lg overflow-hidden transition-all duration-500 hover:border-red-600"
                       >
                         {/* Sliding Background Fill */}

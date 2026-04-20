@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FaArrowRight, FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
-import { scrollToSection } from "../utils/smoothScroll";
+import { scrollToSection, scrollToTop } from "../utils/smoothScroll";
 import Image from "next/image";
 
 const Footer = () => {
@@ -172,7 +172,7 @@ const Footer = () => {
             </div>
 
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onClick={scrollToTop}
               className="group flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.5em] hover:text-red-600 transition-colors"
             >
               <span>Back to Top</span>

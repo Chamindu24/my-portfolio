@@ -97,11 +97,14 @@ const About = () => {
   }, []);
 
   useEffect(() => {
-    for (let offset = -8; offset <= 8; offset += 1) preloadFrame(currentFrame + offset);
+    for (let offset = -8; offset <= 8; offset += 1)
+      preloadFrame(currentFrame + offset);
   }, [currentFrame]);
 
   useEffect(() => {
-    setDisplayFrame(findNearestLoadedFrame(currentFrame, loadedFramesRef.current));
+    setDisplayFrame(
+      findNearestLoadedFrame(currentFrame, loadedFramesRef.current),
+    );
   }, [currentFrame, loadedTick]);
 
   const imagePath = getFramePath(displayFrame);
@@ -115,28 +118,46 @@ const About = () => {
       <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-yellow-900/10 blur-[100px] md:blur-[150px] rounded-full pointer-events-none z-0" />
 
       <div className="container mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8 relative z-10">
-
         {/* ── HEADER ── */}
-        <div className="mb-16 md:mb-36 flex flex-col items-center text-center">
+        <div className="mb-20 md:mb-32 flex flex-col items-center text-center px-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="space-y-4 md:space-y-6"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
           >
-            <div className="flex items-center justify-center gap-4 text-yellow-600 mb-4">
-              <div className="h-px w-8 md:w-12 bg-yellow-700/50" />
-              <Crown size={18} className="stroke-[1.5px]" />
-              <div className="h-px w-8 md:w-12 bg-yellow-700/50" />
+            {/* The Crown "Stamp" */}
+            <div className="relative mb-10 flex justify-center">
+              <div className="absolute inset-0 blur-2xl opacity-20" />
+
+              <div className="relative flex items-center justify-center w-16 h-16 border border-red-600/30 rounded-full">
+                <Crown size={24} className="text-red-600 stroke-[1.2px]" />
+              </div>
             </div>
-            <h2 className="text-[clamp(3rem,15vw,10rem)] font-black tracking-tight leading-[1.05] text-white px-2 md:px-0">
+
+            {/* Main Headline */}
+            <h2 className="relative z-10 font-serif italic text-[clamp(3.5rem,12vw,9rem)] leading-[0.9] text-white tracking-tighter">
               Who{" "}
-              <span className="inline-block pr-[0.08em] font-sans font-black not-italic text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-300">
-                Am I?
+              <span className="not-italic font-sans font-black uppercase tracking-normal bg-gradient-to-r from-white via-zinc-200 to-zinc-200 bg-clip-text text-transparent">
+                Am I<span className="text-red-600 ml-1">?</span>
               </span>
             </h2>
-          </motion.div>
-        </div>
 
+            {/* Ghost/Background Text for Depth */}
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 -z-10 opacity-[0.1] select-none">
+              <span className="text-[15vw] font-black text-white whitespace-nowrap">
+                ESTABLISHED
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Sub-decorative element */}
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "60px" }}
+            className="h-1 bg-red-600 mt-8"
+          />
+        </div>
         {/* ── MAIN GRID ── */}
         {/*
           On mobile:  single column — sticky image on top, content scrolls below.
@@ -151,7 +172,6 @@ const About = () => {
           ref={containerRef}
           className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-24 lg:items-start"
         >
-
           {/* ── LEFT — STICKY IMAGE ── */}
           <div className="lg:col-span-6 sticky top-4 lg:top-32 self-start z-20 mb-0">
             {/* On mobile we make the image a bit shorter so content is visible */}
@@ -173,7 +193,6 @@ const About = () => {
             On desktop it's natural from grid height.
           */}
           <div className="lg:col-span-6 lg:pr-8 space-y-20 md:space-y-32 pt-8 lg:pt-12">
-
             {/* ── Bio ── */}
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-3 px-3 py-1 border border-yellow-700/30 text-[9px] font-mono text-yellow-600 uppercase tracking-[0.3em] mb-8 md:mb-12">
@@ -317,35 +336,97 @@ const About = () => {
                 {[
                   {
                     group: "Languages & Core",
-                    skills: ["Python", "Java", "TypeScript", "JavaScript", "C#", "C++", "SQL"],
+                    skills: [
+                      "Python",
+                      "Java",
+                      "TypeScript",
+                      "JavaScript",
+                      "C#",
+                      "C++",
+                      "SQL",
+                    ],
                   },
                   {
                     group: "Backend Engineering",
-                    skills: ["Node.js", "Express.js", "Spring Boot", "ASP.NET Core", "FastAPI", "REST APIs", "GraphQL", "Authentication (JWT, OAuth)", "Microservices"],
+                    skills: [
+                      "Node.js",
+                      "Express.js",
+                      "Spring Boot",
+                      "ASP.NET Core",
+                      "FastAPI",
+                      "REST APIs",
+                      "GraphQL",
+                      "Authentication (JWT, OAuth)",
+                      "Microservices",
+                    ],
                   },
                   {
                     group: "Frontend Engineering",
-                    skills: ["React", "Next.js", "Angular", "HTML5", "CSS3", "Tailwind CSS", "Framer Motion"],
+                    skills: [
+                      "React",
+                      "Next.js",
+                      "Angular",
+                      "HTML5",
+                      "CSS3",
+                      "Tailwind CSS",
+                      "Framer Motion",
+                    ],
                   },
                   {
                     group: "Mobile Development",
-                    skills: ["Flutter", "React Native", "Dart", "Responsive Design"],
+                    skills: [
+                      "Flutter",
+                      "React Native",
+                      "Dart",
+                      "Responsive Design",
+                    ],
                   },
                   {
                     group: "Databases & Storage",
-                    skills: ["PostgreSQL", "MongoDB", "MySQL", "Firebase", "Redis"],
+                    skills: [
+                      "PostgreSQL",
+                      "MongoDB",
+                      "MySQL",
+                      "Firebase",
+                      "Redis",
+                    ],
                   },
                   {
                     group: "AI & Machine Learning",
-                    skills: ["Python (AI/ML)", "NumPy", "Pandas", "Scikit-learn", "TensorFlow", "PyTorch", "OpenAI API", "Prompt Engineering", "Model Fine-tuning", "Data Preprocessing"],
+                    skills: [
+                      "Python (AI/ML)",
+                      "NumPy",
+                      "Pandas",
+                      "Scikit-learn",
+                      "TensorFlow",
+                      "PyTorch",
+                      "OpenAI API",
+                      "Prompt Engineering",
+                      "Model Fine-tuning",
+                      "Data Preprocessing",
+                    ],
                   },
                   {
                     group: "DevOps & Tools",
-                    skills: ["Git", "GitHub", "Docker", "CI/CD", "Linux", "Vercel", "Netlify"],
+                    skills: [
+                      "Git",
+                      "GitHub",
+                      "Docker",
+                      "CI/CD",
+                      "Linux",
+                      "Vercel",
+                      "Netlify",
+                    ],
                   },
                   {
                     group: "Design & Architecture",
-                    skills: ["UI/UX Design", "System Design", "Scalable Architecture", "Performance Optimization", "Clean Code"],
+                    skills: [
+                      "UI/UX Design",
+                      "System Design",
+                      "Scalable Architecture",
+                      "Performance Optimization",
+                      "Clean Code",
+                    ],
                   },
                 ].map((cat, idx) => (
                   <div
@@ -362,7 +443,10 @@ const About = () => {
 
                     <div className="relative z-10 flex flex-wrap items-center gap-x-3 md:gap-x-4 gap-y-1">
                       {cat.skills.map((skill, sIdx) => (
-                        <div key={skill} className="flex items-center gap-2 md:gap-3">
+                        <div
+                          key={skill}
+                          className="flex items-center gap-2 md:gap-3"
+                        >
                           <span className="text-xs md:text-sm font-bold text-zinc-500 transition-colors duration-500 cursor-crosshair uppercase tracking-tighter group-hover:text-black">
                             {skill}
                           </span>
